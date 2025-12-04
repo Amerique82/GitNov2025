@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>América BH - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .project-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-type {
+            font-size: 13px;
+            opacity: 0.95;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-body {
+            padding: 28px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-description {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            font-size: 15px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, #f0f0f0 0%, #e8e8e8 100%);
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-content {
+            font-size: 15px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .footer-links {
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 30px 15px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .project-header {
+                padding: 25px;
+            }
+
+            .project-body {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>América Bernal</h1>
+            <p class="subtitle">Digital Strategist | UX-Driven Web Developer</p>
+        </header>
+
+        <!-- Components Section -->
+        <section>
+            <h2 class="section-title">Components</h2>
+            <div class="projects-grid">
+                <a href="components/profile-card.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Profile Card</h3>
+                        <p class="project-type">HTML/CSS Component</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            An elegant, responsive profile card component showcasing modern CSS techniques with flexbox layouts, smooth transitions, and gradient aesthetics. Perfect for user interfaces requiring compact biographical displays.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Responsive</span>
+                            <span class="tag">Flexbox</span>
+                            <span class="tag">Gradients</span>
+                            <span class="tag">Modern CSS</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="components/interactive-cards.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Interactive Cards</h3>
+                        <p class="project-type">HTML/CSS/JS Component</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Dynamic card components featuring 3D hover effects, smooth animations, and interactive transitions. Demonstrates advanced CSS transforms and JavaScript interactivity for engaging user experiences.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">3D Effects</span>
+                            <span class="tag">Animations</span>
+                            <span class="tag">Interactive</span>
+                            <span class="tag">JavaScript</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="components/digital-artisan-complete.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Digital Artisan</h3>
+                        <p class="project-type">HTML/CSS Component</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            A comprehensive component system for Digital Artisan branding, featuring cohesive design elements, reusable modules, and professional styling that maintains brand consistency across digital touchpoints.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Branding</span>
+                            <span class="tag">Modular</span>
+                            <span class="tag">Professional</span>
+                            <span class="tag">Reusable</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Apps Section -->
+        <section>
+            <h2 class="section-title">Apps</h2>
+            <div class="projects-grid">
+                <a href="apps/apa-generator.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">APA Generator</h3>
+                        <p class="project-type">Web Application</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            An intelligent citation generator that formats academic references according to APA standards. Streamlines the research process by automatically generating properly formatted citations for various source types.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Academic</span>
+                            <span class="tag">Citations</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Productivity</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section>
+            <h2 class="section-title">Tools</h2>
+            <div class="projects-grid">
+                <a href="tools/password-strength-checker.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Password Strength Checker</h3>
+                        <p class="project-type">Security Tool</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Real-time password validation and strength analysis tool with automatic secure password generation. Features instant feedback, clipboard integration, and comprehensive security scoring algorithms.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Security</span>
+                            <span class="tag">Validation</span>
+                            <span class="tag">Real-time</span>
+                            <span class="tag">Interactive</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="tools/text-analyzer.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Text Analyzer</h3>
+                        <p class="project-type">Analysis Tool</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            Sophisticated text analysis application that extracts meaningful statistics, word frequencies, and linguistic patterns. Leverages data structures and regex for comprehensive content insights.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Data Analysis</span>
+                            <span class="tag">Statistics</span>
+                            <span class="tag">Regex</span>
+                            <span class="tag">Insights</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Websites Section -->
+        <section>
+            <h2 class="section-title">Websites</h2>
+            <div class="projects-grid">
+                <a href="websites/digital-solutions-website.html" class="project-card">
+                    <div class="project-header">
+                        <h3 class="project-name">Digital Solutions</h3>
+                        <p class="project-type">Full Website</p>
+                    </div>
+                    <div class="project-body">
+                        <p class="project-description">
+                            A complete, professional corporate website showcasing digital services and solutions. Features responsive design, modern layouts, accessibility compliance, and strategic content architecture for business engagement.
+                        </p>
+                        <div class="project-tags">
+                            <span class="tag">Corporate</span>
+                            <span class="tag">Responsive</span>
+                            <span class="tag">Accessible</span>
+                            <span class="tag">Full-site</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p class="footer-content">&copy; 2025 América Bernal | MSc Web Development Journey</p>
+            <div class="footer-links">
+                <a href="https://github.com/Amerique82" class="footer-link">GitHub</a>
+                <a href="https://www.linkedin.com/in/americabernal" class="footer-link">LinkedIn</a>
+                <a href="https://www.americabernal.com" class="footer-link">Portfolio</a>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
