@@ -14,10 +14,12 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
         }
 
         .calculator {
@@ -26,6 +28,7 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 20px;
             width: 320px;
+            margin-bottom: 30px;
         }
 
         .display {
@@ -104,6 +107,37 @@
         .btn-zero {
             grid-column: span 2;
         }
+
+        footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            max-width: 320px;
+        }
+
+        .copyright {
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #fbd38d;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 400;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px rgba(251, 211, 141, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -137,6 +171,16 @@
             <button class="btn-decimal" onclick="calculator.appendNumber('.')">.</button>
         </div>
     </div>
+
+    <footer>
+        <div class="copyright">
+            © 2025 Simple Calculator | Created by América Bernal
+        </div>
+        <div class="footer-links">
+            <a href="https://amerique82.github.io/Portfolio/" target="_blank">← Back to Portfolio</a>
+            <a href="https://github.com/amerique82" target="_blank">GitHub</a>
+        </div>
+    </footer>
 
     <script>
         class Calculator {
