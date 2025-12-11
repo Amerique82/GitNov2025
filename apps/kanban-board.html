@@ -94,8 +94,8 @@
             margin: 0 auto;
             display: flex;
             gap: 0;
-            height: calc(100vh - 180px);
-            min-height: 600px;
+            height: calc(100vh - 260px);
+            min-height: 500px;
         }
 
         .column {
@@ -384,6 +384,56 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Footer styles */
+        .footer {
+            max-width: 1400px;
+            margin: 30px auto 0;
+            padding: 20px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            transition: color 0.2s;
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            color: #0256c7;
+            text-decoration: underline;
+        }
+
+        .footer-link.back {
+            color: var(--todo-red);
+        }
+
+        .footer-link.back:hover {
+            color: #c82333;
+        }
+
+        .footer-link.github {
+            color: var(--text-primary);
+        }
+
+        .footer-link.github:hover {
+            color: var(--accent-blue);
+        }
     </style>
 </head>
 <body>
@@ -464,6 +514,16 @@
     </div>
 
     <div class="toast" id="toast"></div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            © 2025 Kanban Board | Created by América Bernal
+        </div>
+        <div class="footer-links">
+            <a href="https://amerique82.github.io/Portfolio/" class="footer-link back">← Back to Portfolio</a>
+            <a href="https://github.com/amerique82" class="footer-link github" target="_blank">GitHub</a>
+        </div>
+    </footer>
 
     <script>
         // Initialize tasks from localStorage or empty object
