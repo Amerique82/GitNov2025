@@ -98,7 +98,7 @@
 
         .item-row {
             display: grid;
-            grid-template-columns: 40px 60px 1fr auto;
+            grid-template-columns: 40px 60px minmax(0, 1fr) auto;
             gap: 1rem;
             align-items: center;
             padding: 1rem;
@@ -149,6 +149,8 @@
             border: 2px solid #e0e0e0;
             border-radius: 8px;
             flex: 1;
+            min-width: 0;
+            width: 100%;
         }
 
         .item-input:focus {
@@ -342,8 +344,9 @@
             }
 
             .item-row {
-                grid-template-columns: 35px 50px 1fr auto;
+                grid-template-columns: 35px 50px minmax(0, 1fr) auto;
                 gap: 0.5rem;
+                padding: 0.8rem;
             }
 
             .actions {
@@ -442,7 +445,7 @@
                 <div class="item-row" id="item-${categoryIndex}-${itemIndex}">
                     <input type="checkbox" class="checkbox" onchange="toggleItem(${categoryIndex}, ${itemIndex})">
                     <input type="number" class="quantity-input" placeholder="0" min="0" value="1">
-                    <input type="text" class="item-input" placeholder="Type here...">
+                    <input type="text" class="item-input" placeholder="">
                     <button class="delete-btn" onclick="deleteItem(${categoryIndex}, ${itemIndex})">✕</button>
                 </div>
             `;
