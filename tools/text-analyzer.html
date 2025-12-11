@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Analyzer - Python Logic</title>
+    <title>Text Analyzer</title>
     
     <style>
         * {
@@ -14,67 +14,75 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
             min-height: 100vh;
             padding: 40px 20px;
+            color: #333;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
+            flex: 1;
         }
 
         header {
-            text-align: center;
-            color: white;
-            margin-bottom: 40px;
-        }
-
-        h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            font-size: 20px;
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            margin-top: 10px;
-        }
-
-        .demo-card {
             background: white;
-            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             margin-bottom: 30px;
-            animation: slideUp 0.6s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .header-icon {
+            font-size: 48px;
+            color: #d946a6;
         }
 
-        .demo-card h2 {
-            color: #667eea;
+        .header-text h1 {
+            font-size: 32px;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: #000;
+        }
+
+        .header-text .subtitle {
+            font-size: 16px;
+            color: #999;
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .main-card h2 {
+            color: #000;
             margin-bottom: 20px;
-            font-size: 28px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .info-note {
+            background: #f9f5ff;
+            border-left: 4px solid #d946a6;
+            padding: 15px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.6;
+            border-radius: 4px;
+        }
+
+        .info-note strong {
+            color: #d946a6;
         }
 
         .textarea-wrapper {
@@ -84,36 +92,38 @@
         textarea {
             width: 100%;
             padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border: 2px solid #e5e5e5;
+            border-radius: 8px;
             font-size: 16px;
             font-family: inherit;
             min-height: 150px;
             resize: vertical;
+            background: #fafafa;
             transition: border-color 0.3s;
         }
 
         textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            border-color: #d946a6;
+            background: white;
         }
 
         .button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #d946a6 0%, #7c3aed 100%);
             color: white;
             border: none;
             padding: 15px 40px;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
         }
 
         .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(217, 70, 166, 0.3);
         }
 
         .button:active {
@@ -122,174 +132,209 @@
 
         #output {
             margin-top: 30px;
-            background: #f8f9fa;
-            padding: 25px;
-            border-radius: 15px;
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-            line-height: 1.6;
             display: none;
-            color: #2d2d2d;
-            max-height: 500px;
-            overflow-y: auto;
         }
 
         #output.show {
             display: block;
-            animation: fadeIn 0.5s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .info-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 15px;
+        .stats-section {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 25px;
             margin-bottom: 20px;
-            border-radius: 5px;
         }
 
-        .info-box strong {
-            color: #1976d2;
-        }
-
-        .code-section {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            overflow-x: auto;
-        }
-
-        .code-section h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        pre {
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        code {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: white;
-            text-decoration: none;
-            margin-top: 30px;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            transition: background 0.3s;
-        }
-
-        .back-link:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .stats-section h3 {
+            color: #000;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 15px;
-            margin-bottom: 25px;
         }
 
         .stat-box {
-            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            background: white;
+            border: 1px solid #e5e5e5;
             padding: 20px;
-            border-radius: 12px;
+            border-radius: 8px;
             text-align: center;
-            border: 2px solid #667eea30;
         }
 
         .stat-number {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 700;
-            color: #667eea;
-            margin-bottom: 5px;
+            color: #d946a6;
+            margin-bottom: 8px;
         }
 
         .stat-label {
             font-size: 12px;
             color: #666;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            font-weight: 500;
         }
 
-        .word-cloud {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
+        .word-list {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 25px;
             margin-bottom: 20px;
         }
 
-        .word-cloud h3 {
-            color: #667eea;
+        .word-list h3 {
+            color: #000;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .word-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .word-table th {
+            background: #f5f5f5;
+            padding: 12px;
+            text-align: left;
+            border-bottom: 2px solid #e5e5e5;
+            font-weight: 600;
+            color: #000;
+            font-size: 14px;
+        }
+
+        .word-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .word-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .word-table tr:hover {
+            background: #fafafa;
+        }
+
+        .word-name {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #000;
+        }
+
+        .word-value {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .code-section {
+            background: #fafafa;
+            border: 1px solid #e5e5e5;
+            padding: 25px;
+            border-radius: 8px;
+        }
+
+        .code-section h3 {
+            color: #000;
             margin-bottom: 15px;
             font-size: 18px;
+            font-weight: 600;
         }
 
-        .word-item {
-            display: inline-block;
+        pre {
             background: white;
-            padding: 8px 15px;
-            margin: 5px;
-            border-radius: 20px;
-            font-size: 14px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            font-family: 'Courier New', monospace;
+            padding: 20px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow-x: auto;
+            line-height: 1.6;
         }
 
-        .word-count {
-            color: #667eea;
-            font-weight: 700;
-            margin-left: 5px;
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #999;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: #d946a6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .heart {
+            color: #d946a6;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 Text Analyzer</h1>
-            <p class="subtitle">Python-Style Text Analysis in Your Browser</p>
-            <span class="badge">JavaScript Implementation</span>
+            <div class="header-icon">📝</div>
+            <div class="header-text">
+                <h1>Text Analyzer</h1>
+                <p class="subtitle">Analyse your text in seconds</p>
+            </div>
         </header>
 
-        <div class="demo-card">
-            <div class="info-box">
-                <strong>🐍 Python Logic!</strong> This tool uses Python-style algorithms (regex, collections, OOP concepts) implemented in JavaScript for instant results.
+        <div class="main-card">
+            <div class="info-note">
+                <strong>How it works:</strong> This tool counts words, finds patterns, and shows you statistics about your text. Just paste text below and click Analyse.
             </div>
 
-            <h2>🎯 Try the Analyzer</h2>
-            <p style="color: #666; margin-bottom: 20px;">
-                Enter any text below and click "Analyze Text" to see detailed statistics.
-            </p>
+            <h2>Enter your text</h2>
             
             <div class="textarea-wrapper">
-                <textarea id="textInput" placeholder="Paste or type your text here...">Python is an amazing programming language that is widely used in web development, data science, artificial intelligence, and automation. Python's simplicity and readability make it perfect for beginners, while its powerful libraries and frameworks make it suitable for advanced applications. Many developers love Python because of its elegant syntax and community support.</textarea>
+                <textarea id="textInput" placeholder="Type or paste your text here...">Python is an amazing programming language that is widely used in web development, data science, artificial intelligence, and automation. Python's simplicity and readability make it perfect for beginners, while its powerful libraries and frameworks make it suitable for advanced applications. Many developers love Python because of its elegant syntax and community support.</textarea>
             </div>
             
-            <button class="button" id="analyzeBtn">🔍 Analyze Text</button>
+            <button class="button" id="analyzeBtn">Analyse Text</button>
             
             <div id="output"></div>
         </div>
 
-        <div class="demo-card">
-            <h2>💻 Python Logic Used</h2>
-            <p style="color: #666; margin-bottom: 20px;">
-                This analyzer implements Python concepts:
-            </p>
+        <div class="main-card">
+            <h2>Technical details</h2>
             
             <div class="code-section">
-                <pre><code># Python-style Text Analyzer
+                <h3>Python logic example</h3>
+                <pre><code># Text Analyzer in Python
 import re
 from collections import Counter
 
@@ -299,7 +344,6 @@ class TextAnalyzer:
         self.words = self._extract_words()
     
     def _extract_words(self):
-        # Regex to extract words (lowercase)
         words = re.findall(r'\b[a-z]+\b', self.text.lower())
         return words
     
@@ -311,20 +355,16 @@ class TextAnalyzer:
     
     def most_common_words(self, n=10):
         word_freq = Counter(self.words)
-        return word_freq.most_common(n)
-    
-    def longest_words(self, n=5):
-        unique = list(set(self.words))
-        sorted_words = sorted(unique, key=len, reverse=True)
-        return sorted_words[:n]</code></pre>
+        return word_freq.most_common(n)</code></pre>
             </div>
         </div>
-
-        <a href="../../index.html" class="back-link">← Back to Portfolio</a>
     </div>
 
+    <footer>
+        Created with <span class="heart">♥</span> by <a href="#">Your Name</a>
+    </footer>
+
     <script>
-        // TextAnalyzer Class (Python-style OOP in JavaScript)
         class TextAnalyzer {
             constructor(text) {
                 this.text = text;
@@ -332,7 +372,6 @@ class TextAnalyzer:
             }
 
             _extractWords() {
-                // Python regex equivalent: re.findall(r'\b[a-z]+\b', text.lower())
                 const words = this.text.toLowerCase().match(/\b[a-z]+\b/g) || [];
                 return words;
             }
@@ -348,7 +387,7 @@ class TextAnalyzer:
             averageWordLength() {
                 if (this.words.length === 0) return 0;
                 const totalLength = this.words.reduce((sum, word) => sum + word.length, 0);
-                return (totalLength / this.words.length).toFixed(2);
+                return (totalLength / this.words.length).toFixed(1);
             }
 
             characterCount() {
@@ -361,13 +400,11 @@ class TextAnalyzer:
             }
 
             mostCommonWords(n = 10) {
-                // Python Counter equivalent
                 const frequency = {};
                 this.words.forEach(word => {
                     frequency[word] = (frequency[word] || 0) + 1;
                 });
 
-                // Sort by frequency (Python's most_common())
                 return Object.entries(frequency)
                     .sort((a, b) => b[1] - a[1])
                     .slice(0, n);
@@ -376,31 +413,6 @@ class TextAnalyzer:
             longestWords(n = 5) {
                 const unique = [...new Set(this.words)];
                 return unique.sort((a, b) => b.length - a.length).slice(0, n);
-            }
-
-            getFormattedOutput() {
-                let result = "=".repeat(50) + "\n";
-                result += "TEXT ANALYSIS RESULTS\n";
-                result += "=".repeat(50) + "\n\n";
-                result += "📊 Basic Statistics:\n";
-                result += `   Total Words: ${this.wordCount()}\n`;
-                result += `   Unique Words: ${this.uniqueWords()}\n`;
-                result += `   Characters: ${this.characterCount()}\n`;
-                result += `   Sentences: ${this.sentenceCount()}\n`;
-                result += `   Average Word Length: ${this.averageWordLength()} letters\n\n`;
-                
-                result += "🔥 Most Common Words:\n";
-                this.mostCommonWords().forEach(([word, count]) => {
-                    result += `   '${word}': ${count} times\n`;
-                });
-                
-                result += "\n📏 Longest Words:\n";
-                this.longestWords().forEach(word => {
-                    result += `   '${word}' (${word.length} letters)\n`;
-                });
-                
-                result += "\n" + "=".repeat(50);
-                return result;
             }
 
             getVisualOutput() {
@@ -421,69 +433,92 @@ class TextAnalyzer:
             }
         }
 
-        // Event Listener
         document.getElementById('analyzeBtn').addEventListener('click', () => {
             const text = document.getElementById('textInput').value;
             const outputDiv = document.getElementById('output');
 
             if (!text.trim()) {
-                outputDiv.innerHTML = '<p style="color: #e74c3c; text-align: center;">⚠️ Please enter some text to analyze!</p>';
+                outputDiv.innerHTML = '<div class="info-note"><strong>Warning:</strong> Please enter some text to analyse</div>';
                 outputDiv.classList.add('show');
                 return;
             }
 
-            // Create analyzer instance
             const analyzer = new TextAnalyzer(text);
             const visual = analyzer.getVisualOutput();
 
-            // Create visual output
             let html = `
-                <div class="stats-grid">
-                    <div class="stat-box">
-                        <div class="stat-number">${visual.stats.totalWords}</div>
-                        <div class="stat-label">Total Words</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">${visual.stats.uniqueWords}</div>
-                        <div class="stat-label">Unique Words</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">${visual.stats.characters}</div>
-                        <div class="stat-label">Characters</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">${visual.stats.sentences}</div>
-                        <div class="stat-label">Sentences</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">${visual.stats.avgLength}</div>
-                        <div class="stat-label">Avg Length</div>
+                <div class="stats-section">
+                    <h3>Basic statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number">${visual.stats.totalWords}</div>
+                            <div class="stat-label">Total Words</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">${visual.stats.uniqueWords}</div>
+                            <div class="stat-label">Unique Words</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">${visual.stats.characters}</div>
+                            <div class="stat-label">Characters</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">${visual.stats.sentences}</div>
+                            <div class="stat-label">Sentences</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number">${visual.stats.avgLength}</div>
+                            <div class="stat-label">Average Length</div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="word-cloud">
-                    <h3>🔥 Most Common Words</h3>
-                    ${visual.commonWords.map(([word, count]) => 
-                        `<span class="word-item">${word}<span class="word-count">${count}×</span></span>`
-                    ).join('')}
+                <div class="word-list">
+                    <h3>Most common words</h3>
+                    <table class="word-table">
+                        <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${visual.commonWords.map(([word, count]) => `
+                                <tr>
+                                    <td class="word-name">${word}</td>
+                                    <td class="word-value">${count} times</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="word-cloud">
-                    <h3>📏 Longest Words</h3>
-                    ${visual.longestWords.map(word => 
-                        `<span class="word-item">${word}<span class="word-count">${word.length} letters</span></span>`
-                    ).join('')}
+                <div class="word-list">
+                    <h3>Longest words</h3>
+                    <table class="word-table">
+                        <thead>
+                            <tr>
+                                <th>Word</th>
+                                <th>Length</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${visual.longestWords.map(word => `
+                                <tr>
+                                    <td class="word-name">${word}</td>
+                                    <td class="word-value">${word.length} letters</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
                 </div>
             `;
 
             outputDiv.innerHTML = html;
             outputDiv.classList.add('show');
-
-            // Scroll to results
             outputDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
 
-        // Allow Enter key to analyze
         document.getElementById('textInput').addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && e.ctrlKey) {
                 document.getElementById('analyzeBtn').click();
