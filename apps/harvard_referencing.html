@@ -489,6 +489,44 @@
             color: var(--oxford-blue);
         }
 
+        .footer-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold-accent), transparent);
+            margin: 30px auto;
+        }
+
+        .copyright {
+            color: #9ca3af;
+            font-size: 14px;
+            font-weight: 400;
+            margin: 20px 0 15px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 24px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: #667eea !important;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .footer-link:hover {
+            color: #764ba2 !important;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
         .italic {
             font-style: italic;
         }
@@ -508,6 +546,16 @@
 
             .form-row {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .footer-link {
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
@@ -751,6 +799,15 @@
         <footer>
             <p>Based on <a href="https://www.citethemrightonline.com/" target="_blank">Cite Them Right</a> (11th edition) · Harvard Referencing Style</p>
             <p style="margin-top: 10px; font-size: 12px;">Designed with ♥ for academic students</p>
+            
+            <div class="footer-divider"></div>
+            
+            <p class="copyright">© 2025 Harvard Citation Generator | Created by América Bernal</p>
+            
+            <div class="footer-links">
+                <a href="https://amerique82.github.io/Portfolio/" class="footer-link">← Back to Portfolio</a>
+                <a href="https://github.com/amerique82" target="_blank" class="footer-link">GitHub</a>
+            </div>
         </footer>
     </div>
 
